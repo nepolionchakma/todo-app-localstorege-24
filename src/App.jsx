@@ -3,6 +3,13 @@ import './App.css'
 import { TodoProvider } from './Contexts/TodoContext';
 import Form from './Form';
 import FormItems from './FormItems';
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Route,
+  Link,
+} from "react-router-dom";
+import Home from './Home';
 
 function App() {
   const [todos, setTodos] = useState([]);
@@ -33,19 +40,24 @@ function App() {
     localStorage.setItem('todos', JSON.stringify(todos))
   }, [todos])
 
+  const router = createBrowserRouter([
+    {
+      path: "/",
+      element: <Home />
+    },
+    {
+      path: "about",
+      element: <div>About</div>,
+    },
+  ]);
+
+
   return (
     <TodoProvider value={{ todos, addTodo, updateTodo, deleteTodo, toggleComplete }}>
       <div className='max-w-xl mx-auto py-9 bg-slate-300 px-9 rounded-lg'>
         <div>
-          <Form />
-        </div>
-        <div>
-          {
-            todos.map((todo) => (
-              <div key={todo.id}>
-                <FormItems todo={todo} />
-              </div>))
-          }
+          <RouterProvider router={router} />
+
         </div>
       </div>
     </TodoProvider>

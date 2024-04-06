@@ -7,7 +7,7 @@ const Form = () => {
     const handleSubmit = (e) => {
         e.preventDefault()
         if (!todo) return
-        addTodo({ todo, completed: 'false' })
+        addTodo({ todo, completed: false })
         // addTodo({id:Date.now(),todo:todo,completed:'false'}) 
         setTodo('')
     }
